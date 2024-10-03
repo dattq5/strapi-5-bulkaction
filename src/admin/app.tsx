@@ -1,4 +1,5 @@
 import type { StrapiApp } from '@strapi/strapi/admin';
+import {BulkEditButton} from './components/BulkEditButton/BulkEditButton';
 
 export default {
   config: {
@@ -32,6 +33,11 @@ export default {
     ],
   },
   bootstrap(app: StrapiApp) {
-    console.log(app);
+    // console.log('.................app..............', app);
+    (app as any).getPlugin('content-manager').apis.addBulkAction((actions: any[]) => {
+      console.log('action----', actions);
+      actions.push(BulkEditButton);
+      return actions;
+    });
   },
 };
